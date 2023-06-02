@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    {{!-- {{>link}} --}}
+    <link rel="stylesheet" href="css/webapp.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+  {{>header}}
+        <div class="box">
+      <div class="wave one"></div>
+      <div class="wave two"></div>
+      <div class="wave three"></div>
+      <div id="weathericon">
+        <i class="fa-solid fa-sun" style="color: rgb(208, 183, 42)"></i>
+      </div>
+      <div class="info">
+        <h2 id="location">
+          <i class="fa-solid fa-street-view"></i> {%location%}, {%country%}
+        </h2>
+        <p id="date">MON | JAN 09 | 4:57PM</p>
+        <h1 id="temp"><span id="temperature">22</span><sup>o</sup>C</h1>
+        <h3 id="tempmin_max"><span id="min">19</span> <sup>o</sup>C | <span id="max">22</span> <sup>o</sup>C</h3>
+      </div>
+    </div>
+    <script>
+      const curDate = document.getElementById("date");
+      let weathericon = document.getElementById("weathericon");
+      let temp = document.getElementById("temperature");
+     
+     let location1 = document.getElementById("location");
+     let tempmin = document.getElementById("min");
+     let tempmax = document.getElementById("max");
+    
+     let gettemp=async()=>{
+     let url = 'https://api.openweathermap.org/data/2.5/weather?q=Karachi&units=metric&appid=3094350c44880bb33d3a5a72ae5f749c'
+     let response = await fetch(url)
+     const data = await response.json()
+     //console.log(data)
+     const arrData = [data]
+    
+     temp.innerText=arrData[0].main.temp;
+     tempmin.innerText=arrData[0].main.temp_min
+     tempmax.innerText=arrData[0].main.temp_max
+  
+     location1.innerText=`${arrData[0].name}, ${arrData[0].sys.country}` 
+      
+     }
+     gettemp()
+    
+    let  = document.getElementById("weathericon");
+      const tempStatus = "{%tempstatus%}";
+      if (tempStatus == "Sunny") {
+        weathericon.innerHTML =
+          '<i class="fa-solid fa-sun" style="color:red"></i>';
+      }
+      else if (tempStatus == "Haze") {
+        weathericon.innerHTML =
+          '<i class="fa-solid fa-cloud" style="color:#f1f2f6"></i>';
+      }
+      else if (tempStatus == "Rainy") {
+        weathericon.innerHTML =
+          '<i class="fa-solid fa-cloud-rain" style="color:rgb(208, 183, 42)"></i>';
+      }
+      else {
+        weathericon.innerHTML =
+          '<i class="fa-solid fa-cloud" style="color:rgb(208, 183, 42)"></i>';
+      }
+      let getCurrentDay = () => {
+        let currentTime = new Date();
+        let weekDay = new Array(7);
+        weekDay[0] = "Sunday";
+        weekDay[1] = "Monday";
+        weekDay[2] = "Tuesday";
+        weekDay[3] = "Wednesday";
+        weekDay[4] = "Thursday";
+        weekDay[5] = "Friday";
+        weekDay[6] = "Saturday";
+        let day = weekDay[currentTime.getDay()];
+        return day;
+      };
+      getCurrentDay();
+      let getCurrentTime = () => {
+        var months = [
+          "JAN",
+          "FEB",
+          "MARCH",
+          "APRIL",
+          "MAY",
+          "JUNE",
+          "JULY",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+        let now = new Date();
+        let month = months[now.getMonth()];
+        let date = now.getDate();
+        let hours = now.getHours();
+        let mins = now.getMinutes();
+        let period = "AM";
+        if (hours > 11) {
+          period = "PM";
+          if (hours > 12) {
+            hours -= 12;
+          }
+        }
+        if (mins < 10) {
+          mins = "0" + mins;
+        }
+        return `${month} ${date} | ${hours}:${mins} ${period} `;
+      };
+      curDate.innerHTML = getCurrentDay() + " | " + getCurrentTime();
+    </script>
+     </body>
+</html>

@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    /* height: 100%; */
+}
+body{
+    display: flex;
+    flex-direction: column;
+     height: 100vh; 
+    /* height: 100%; */
+}
+.menu{
+    position: fixed;
+    width: 3vw;
+    height: 100vh;
+    background-color: lightseagreen;
+    text-align: center;
+    margin-top: -1px;
+    
+    
+} 
+
+
+ul li{
+    
+    line-height: 15vh;
+    list-style: none;
+   
+
+}
+ul li a{
+    text-decoration: none;
+}
+ul li a i{
+    color: white;
+}
+
+.footer{
+    background-color: aquamarine;
+    height: 5rem;
+    margin-top: auto;
+
+}
+.footer p{
+    font-size: 1rem;
+    color: black;
+    line-height: 5rem;/*.footer(parentdiv)height is 5rem p is a child div, by giving line-height:height_of_parentdiv the text comes in center */
+
+}
